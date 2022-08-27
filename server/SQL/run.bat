@@ -1,0 +1,1 @@
+java -cp classes;mysql-connector-java-8.0.30/mysql-connector-java-8.0.30.jar sqlconnector.test
