@@ -10,3 +10,11 @@ SERVER SETUP PROCESS
 
 3. Run src > main > java > com > example > demo > DemoApplication.java
    to set up server
+
+CLIENT SETUP PROCESS
+================================
+1. cd into the client folder
+
+2. Run "npm install" to install all the packages from the package.json
+
+3. Run "npm run start" to run the application on the localhost
