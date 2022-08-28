@@ -1,12 +1,30 @@
 import { Button, Group, Stack } from "@mantine/core";
-import React, { useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import image from "../../background/WalkthroughBackground.png";
 import Feature from "./Feature/Feature";
+import axios from "../../axios/axios";
+import { AddedServicesContext } from "../../App";
 
 const Walkthrough = () => {
   const [index, setIndex] = useState(0);
   const navigate = useNavigate();
+
+  const [solutions, setSolutions] = useState([]);
+
+
+  useEffect(() => {
+    const getSolution = async () => {
+      try {
+        const res = await axios("/solution");
+        setSolutions(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getSolution();
+  }, []);
+
 
   const solutionsArray = [
     {
@@ -99,16 +117,25 @@ const Walkthrough = () => {
   const myStyle = {
     backgroundImage: `url(${image})`,
     height: "100vh",
+    paddingBottom: "20px",
+    paddingLeft: "20px",
+    paddingRight: "20px",
 
     fontSize: "50px",
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
   };
-  const buttonStyle = index === 0 ? "right" : "apart";
+
+  const scrollRef = useRef();
+
+  useEffect(() => {
+    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, []);
+
   return (
     <div style={myStyle} className="flex items-center justify-center h-screen">
       <Stack>
-        <Feature feature={solutionsArray[index]} />
+        {solutions.length !== 0 && <Feature feature={solutions[index]} />}
         <Group position="apart">
           {index !== 0 ? (
             <Button
@@ -119,7 +146,7 @@ const Walkthrough = () => {
             </Button>
           ) : (
             <Button
-              onClick={() => navigate("/solutions")}
+              onClick={() => navigate("/form")}
               className="bg-certainGreen-50 text-black"
             >
               Return

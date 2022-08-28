@@ -3,10 +3,17 @@ create database serviceFinder;
 use serviceFinder;
 
 create table CLIENT 
-(clientID int not null,
-cName varchar(128) not null,
-cEmail varchar(128) not null,
+(clientID long not null AUTO_INCREMENT,
+name varchar(128) not null,
+industry varchar(128) not null,
 constraint client_pk primary key (clientID));
+
+create table ADDEDFEATURES 
+(SID long not null AUTO_INCREMENT,
+clientID long not null,
+name varchar(128) not null,
+constraint client_pk primary key (SID),
+constraint client_fk foreign key (clientID) references CLIENT(clientID));
 
 create table SOLUTION
 (SID int not null,
@@ -18,7 +25,7 @@ create table FEATURE
 FID int not null,
 fName varchar(128) not null,
 fDescription varchar(128) not null,
-constraint feature_pk primary key (SID, FID),
+constraint feature_pk primary key (FID),
 constraint feature_fk foreign key (SID) references SOLUTION(SID));
 
 create table CHECKLIST

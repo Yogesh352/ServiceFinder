@@ -36,7 +36,7 @@ const Listings = () => {
                 Let us guide you through a tailor made experience to find just
                 what you need
               </Text>
-              <Link to="/walkthrough">
+              <Link to="/form">
                 <Group position="right">
                   <Button className="bg-white w-34 text-black rounded-full">
                     Get Help
