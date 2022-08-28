@@ -6,6 +6,7 @@ import Walkthrough from "./pages/Walkthrough/Walkthrough";
 import { createContext, useMemo, useState } from "react";
 import Summary from "./pages/Summary/Summary";
 import Ending from "./pages/Ending/Ending";
+import Form from "./pages/Form/Form";
 export const AddedServicesContext = createContext({
   services: [],
   setServices: () => {},
@@ -13,7 +14,11 @@ export const AddedServicesContext = createContext({
 
 function App() {
   const [services, setServices] = useState([]);
-  const value = useMemo(() => ({ services, setServices }), [services]);
+  const [userData, setUserData] = useState({});
+  const value = useMemo(
+    () => ({ services, setServices, userData, setUserData }),
+    [services, userData]
+  );
   return (
     <AddedServicesContext.Provider value={value}>
       <BrowserRouter>
@@ -23,6 +28,7 @@ function App() {
           <Route path="/walkthrough" element={<Walkthrough />} />
           <Route path="/summary" element={<Summary />} />
           <Route path="/ending" element={<Ending />} />
+          <Route path="/form" element={<Form />} />
         </Routes>
       </BrowserRouter>
     </AddedServicesContext.Provider>

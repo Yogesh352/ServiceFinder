@@ -1,25 +1,27 @@
 import { Box, Group, Stack, Text, Button } from "@mantine/core";
 
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AddedServicesContext } from "../../../App";
-
-const initialState = false;
 
 const IndividualFeature = ({ feature }) => {
   const { services, setServices } = useContext(AddedServicesContext);
 
-  const [selected, setSelected] = useState(services.includes(feature.title));
-
-  console.log(services);
+  const [selected, setSelected] = useState(false);
+  setTimeout(() => {
+    setSelected(false);
+    if (services.includes(feature.name)) {
+      setSelected(true);
+    }
+  }, 50);
 
   return (
-    <Box className="p-4 shadow-2xl bg-white w-[278px] h-[270px] ">
+    <Box className="p-4 shadow-2xl bg-white w-full md:h-56 sm:h-30 ">
       <Group position="right">
         {!selected ? (
           <Button
             onClick={(event) => {
               setSelected(true);
-              setServices([...services, feature.title]);
+              setServices([...services, feature.name]);
             }}
             className="bg-certainGreen-100"
           >
@@ -31,8 +33,7 @@ const IndividualFeature = ({ feature }) => {
               setSelected(false);
               setServices((current) =>
                 current.filter((selected) => {
-                  console.log(selected);
-                  return selected !== feature.title;
+                  return selected !== feature.name;
                 })
               );
             }}
@@ -42,12 +43,12 @@ const IndividualFeature = ({ feature }) => {
           </Button>
         )}
       </Group>
-      <Stack spacing="md" className="h-full w-full justify-center ">
+      <Stack spacing="md" className="h-full w-full  ">
         <Text className="text-2xl font-bold text-certainGreen-100">
-          {feature.title}
+          {feature?.name}
         </Text>
-        <Text className="text-base text-certainGreen-100">
-          {feature.shortDescription}
+        <Text className="text-sm text-certainGreen-100">
+          {feature?.description}
         </Text>
       </Stack>
     </Box>
